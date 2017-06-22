@@ -21,11 +21,12 @@ app.get('/', function (req, res) {
 
 //verification
 app.get('/webhook/', function (req, res) {
-	console.log('token: '+fb_page_token+', verifytoken:' + req.query['hub.verify_token']+', challenge: ' + req.query['hub.challenge']);
+	console.log('token: '+fb_page_token+', verifytoken:' + req.query['hub.verify_token']+', challenge: ' + req.query['hub.challenge'] +', equal?: ' + (req.query['hub.verify_token'] === fb_page_token));
 	if (req.query['hub.verify_token'] === fb_page_token) {
 		res.send(req.query['hub.challenge'])
+	}else{
+		res.send('Error, wrong token')
 	}
-	res.send('Error, wrong token')
 })
 
 //Spin up the server
