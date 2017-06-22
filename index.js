@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 
+const fb_page_token = process.env.FB_PAGE_ACCESS_TOKEN
 app.set('port', (process.env.PORT || 80))
 
 // Process application/x-www-form-urlencoded
@@ -20,7 +21,7 @@ app.get('/', function (req, res) {
 
 //verification
 app.get('/webhook/', function (req, res) {
-	if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
+	if (req.query['hub.verify_token'] === fb_page_token) {
 		res.send(req.query['hub.challenge'])
 	}
 	res.send('Error, wrong token')
